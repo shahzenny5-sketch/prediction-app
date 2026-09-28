@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Prediction App</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .container {
+            width: 380px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1976d2;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #1976d2;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #125aa0;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f1f8ff;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .weather-icon {
+            font-size: 50px;
+            margin: 10px;
+        }
+
+        .result h2 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .result p {
+            margin: 7px;
+            color: #444;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🌦️ Weather Prediction</h1>
+
+    <div class="input-group">
+        <label for="temperature">Temperature (°C)</label>
+        <input type="number" id="temperature" placeholder="Example: 30">
+    </div>
+
+    <div class="input-group">
+        <label for="humidity">Humidity (%)</label>
+        <input type="number" id="humidity" placeholder="Example: 70">
+    </div>
+
+    <div class="input-group">
+        <label for="wind">Wind Speed (km/h)</label>
+        <input type="number" id="wind" placeholder="Example: 15">
+    </div>
+
+    <button onclick="predictWeather()">Predict Weather</button>
+
+    <div class="result" id="result">
+        <div class="weather-icon" id="icon"></div>
+
+        <h2 id="prediction"></h2>
+
+        <p id="temperatureResult"></p>
+        <p id="humidityResult"></p>
+        <p id="windResult"></p>
+    </div>
+
+</div>
+
+<script>
+
+function predictWeather() {
+
+    let temperature = parseFloat(
+        document.getElementById("temperature").value
+    );
+
+    let humidity = parseFloat(
+        document.getElementById("humidity").value
+    );
+
+    let wind = parseFloat(
+        document.getElementById("wind").value
+    );
+
+    if (isNaN(temperature) || isNaN(humidity) || isNaN(wind)) {
+        alert("Please enter all weather values.");
+        return;
+    }
+
+    let prediction = "";
+    let icon = "";
+
+    // Simple prediction logic
+    if (humidity >= 80 && temperature <= 30) {
+        prediction = "Rainy Weather";
+        icon = "🌧️";
+    }
+    else if (humidity >= 70 && wind >= 20) {
+        prediction = "Cloudy and Windy";
+        icon = "🌥️";
+    }
+    else if (temperature >= 35 && humidity < 60) {
+        prediction = "Hot and Sunny";
+        icon = "☀️";
+    }
+    else if (temperature >= 25 && humidity < 70) {
+        prediction = "Sunny Weather";
+        icon = "🌞";
+    }
+    else {
+        prediction = "Cloudy Weather";
+        icon = "☁️";
+    }
+
+    document.getElementById("prediction").innerText = prediction;
+    document.getElementById("icon").innerText = icon;
+
+    document.getElementById("temperatureResult").innerText =
+        "Temperature: " + temperature + " °C";
+
+    document.getElementById("humidityResult").innerText =
+        "Humidity: " + humidity + " %";
+
+    document.getElementById("windResult").innerText =
+        "Wind Speed: " + wind + " km/h";
+
+    document.getElementById("result").style.display = "block";
+}
+
+</script>
+
+</body>
+</html>
